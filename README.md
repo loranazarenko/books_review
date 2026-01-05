@@ -126,51 +126,6 @@ curl "http://localhost:3001/api/review?bookId=1&from=0&size=10"
   "message": "Review counts retrieved successfully"
 }
 ```
-
----
-
-## 📁 Project structure
-
-```
-review-service/
-├── src/
-│   ├── main.ts                          # Entry point
-│   ├── app.ts                           # Express app
-│   ├── config/
-│   │   ├── database.connection.ts
-│   │   ├── mongo.setup.ts
-│   │   └── useEnv.ts  
-│   ├── models/
-│   │   └── review.model.ts              # Mongoose schema
-│   ├── dto/
-│   │   ├── create-review.dto.ts
-│   │   └── query-review.dto.ts
-│   ├── repositories/
-│   │   └── review.repository.ts
-│   ├── services/
-│   │   └── review.service.ts
-│   ├── controllers/
-│   │   └── review.controller.ts
-│   ├── routes/
-│   │   └── review.router.ts
-│   ├── middleware/
-│   │   └── errorHandler.ts
-│   └── exceptions/
-│       ├── ValidationException.ts
-│       └── NotFoundException.ts
-├── test/
-│   ├── integration/
-│   │   └── review.controller.test.ts
-│   
-│   ├── useTestEnv.ts
-│   └── setup.ts
-├── docker-compose.yml
-├── package.json
-├── tsconfig.json
-├── jest.config.js
-└── .env
-```
-
 ---
 
 ## 🧪 Integration tests
@@ -256,42 +211,6 @@ curl "http://localhost:3001/api/review?bookId=1&from=0&size=10"
 curl -X POST http://localhost:3001/api/review/_counts \
   -H "Content-Type: application/json" \
   -d '{"bookIds": ["1", "2", "3"]}'
-```
-
----
-
-## 🤝 Frontend integration
-
-### Example React component
-
-```typescript
-// Get reviews for the book
-const getReviews = async (bookId: string) => {
-  const res = await fetch(
-    `http://localhost:3001/api/review?bookId=${bookId}&from=0&size=5`
-  );
-  return res.json();
-};
-
-// Add a review
-const addReview = async (review: CreateReviewDto) => {
-  const res = await fetch('http://localhost:3001/api/review', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(review),
-  });
-  return res.json();
-};
-
-// Get number of reviews
-const getReviewCounts = async (bookIds: string[]) => {
-  const res = await fetch('http://localhost:3001/api/review/_counts', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ bookIds: bookIds }),
-  });
-  return res.json();
-};
 ```
 
 ---
